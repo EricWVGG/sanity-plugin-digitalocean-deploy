@@ -3,11 +3,11 @@
 </h3>
 
 <p>
-  This project is <s>shamelessly ripped off of</s> based on [https://github.com/ndimatteo/sanity-plugin-vercel-deploy](sanity-plugin-vercel-deploy) by [https://github.com/ndimatteo](Nick DiMatteo).
+  This project is <s>shamelessly ripped off of</s> based on <a href="https://github.com/ndimatteo/sanity-plugin-vercel-deploy">sanity-plugin-vercel-deploy</a> by <a href="https://github.com/ndimatteo">Nick DiMatteo</a>.
 </p>
 
 <p align="center">
-  <strong>Trigger DigtalOcean Deploy Hooks from your Sanity Studio.</strong><br />
+  <strong>Trigger DigitalOcean Deploy Hooks from your Sanity Studio.</strong><br />
 ✨ LIVE status updates ✨ multiple deployments ✨ active polling ✨
 </p>
 
@@ -56,4 +56,5 @@ To create a new deployment, click the `Add Project` button. Next, you'll be prom
 ## License
 
 ### MIT
+
 # sanity-plugin-digitalocean-deploy
