@@ -6,6 +6,7 @@ import spacetime from 'spacetime'
 import sanityClient from 'part:@sanity/base/client'
 
 import {
+  ToastProvider,
   useToast,
   Badge,
   Box,
@@ -189,7 +190,7 @@ const deployItem = ({ name, id, appId, token, deployOnPublish }) => {
   }, [timestamp, isDeploying])
 
   return (
-    <>
+    <ToastProvider>
       <Flex align="center">
         <Box flex={1} paddingBottom={1}>
           <Stack space={2}>
@@ -312,7 +313,7 @@ const deployItem = ({ name, id, appId, token, deployOnPublish }) => {
           <DeployHistory {...{ appId, token }} />
         </Dialog>
       )}
-    </>
+    </ToastProvider>
   )
 }
 
