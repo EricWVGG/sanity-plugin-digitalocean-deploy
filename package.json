@@ -1,6 +1,6 @@
 {
   "name": "sanity-plugin-digitalocean-deploy",
-  "version": "2.1.6",
+  "version": "1.0.1",
   "description": "Trigger DigitalOcean Deploy Hooks from your Sanity Studio.",
   "keywords": [
     "sanity",
