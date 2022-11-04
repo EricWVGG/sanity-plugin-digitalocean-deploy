@@ -1,5 +1,5 @@
 <h3 align="center">
-  DigtalOcean Deployment for Sanity
+  DigitalOcean Deployments for Sanity
 </h3>
 
 <p>
