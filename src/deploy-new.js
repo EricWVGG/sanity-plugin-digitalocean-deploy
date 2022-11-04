@@ -31,7 +31,7 @@ const NewDeploymentForm = ({ setIsFormOpen }) => {
     e.persist()
     let appId = e?.target?.value
     if (appId.substr(0, 4) === 'http') {
-      appId = appId.split('/')[4]
+      appId = appId.replaceAll('?', '/').split('/')[4]
     }
     setNewDeploy((prevState) => ({
       ...prevState,
