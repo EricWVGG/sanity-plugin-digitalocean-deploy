@@ -37,7 +37,7 @@ const fetcher = (url, token) =>
     })
     .then((res) => res.data)
 
-const deployItem = ({ name, id, appId, token }) => {
+const deployItem = ({ name, id, appId, token, deployOnPublish }) => {
   const client = sanityClient.withConfig({ apiVersion: '2021-03-25' })
 
   const [isLoading, setIsLoading] = useState(true)
@@ -71,18 +71,15 @@ const deployItem = ({ name, id, appId, token }) => {
     setDeploying(true)
     setTimestamp(null)
     setBuildTime(null)
-
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
     }
-
     const body = JSON.stringify({
       force_build: true,
     })
-
     axios
       .post(
         `https://api.digitalocean.com/v2/apps/${appId}/deployments`,
@@ -143,27 +140,21 @@ const deployItem = ({ name, id, appId, token }) => {
   // set status when new deployment data comes in
   useEffect(() => {
     let isSubscribed = true
-
     if (deploymentData?.deployments && isSubscribed) {
       const latestDeployment = deploymentData.deployments[0]
       setLatestDeploymentId(latestDeployment.id)
-
       setStatus(latestDeployment?.state || 'READY')
-
       if (latestDeployment?.created) {
         setTimestamp(latestDeployment?.created)
       }
-
       setIsLoading(false)
     }
-
     return () => (isSubscribed = false)
   }, [deploymentData])
 
   // update deploy state after status is updated
   useEffect(() => {
     let isSubscribed = true
-
     if (isSubscribed) {
       if (status === 'READY' || status === 'ERROR' || status === 'CANCELED') {
         setDeploying(false)
@@ -171,7 +162,6 @@ const deployItem = ({ name, id, appId, token }) => {
         setDeploying(true)
       }
     }
-
     return () => (isSubscribed = false)
   }, [status])
 
@@ -189,11 +179,9 @@ const deployItem = ({ name, id, appId, token }) => {
         tick(timestamp)
       }
     }, 1000)
-
     if (!isDeploying) {
       clearInterval(timer)
     }
-
     return () => {
       isTicking = false
       clearInterval(timer)
@@ -207,7 +195,10 @@ const deployItem = ({ name, id, appId, token }) => {
           <Stack space={2}>
             <Inline space={2}>
               <Heading as="h2" size={1}>
-                <Text weight="semibold">{name}</Text>
+                <Text weight="semibold">
+                  {name}
+                  {deployOnPublish > 0 ? <span> 🚀</span> : ''}
+                </Text>
               </Heading>
             </Inline>
             <Code size={1}>
@@ -226,37 +217,36 @@ const deployItem = ({ name, id, appId, token }) => {
         <Flex wrap="nowrap" align="center" marginLeft={4}>
           <Inline space={2}>
             {token && (
-              <Box marginRight={2}>
-                <Stack space={2}>
-                  <DeployStatus status={status} justify="flex-end">
-                    {errorMessage && (
-                      <Box marginLeft={2}>
-                        <Tooltip
-                          content={
-                            <Box padding={2}>
-                              <Text muted size={1}>
-                                {errorMessage}
-                              </Text>
-                            </Box>
-                          }
-                          placement="top"
-                        >
-                          <Badge mode="outline" tone="critical">
-                            ?
-                          </Badge>
-                        </Tooltip>
-                      </Box>
-                    )}
-                  </DeployStatus>
-
-                  <Text align="right" size={1} muted>
-                    {isDeploying
-                      ? buildTime || '--'
-                      : timestamp
-                      ? spacetime.now().since(spacetime(timestamp)).rounded
-                      : '--'}
-                  </Text>
-                </Stack>
+              <Box margin={4}>
+                <DeployStatus status={status} justify="flex-end">
+                  {errorMessage && (
+                    <Box marginLeft={2}>
+                      <Tooltip
+                        content={
+                          <Box padding={2}>
+                            <Text muted size={1}>
+                              {errorMessage}
+                            </Text>
+                          </Box>
+                        }
+                        placement="top"
+                      >
+                        <Badge mode="outline" tone="critical">
+                          ?
+                        </Badge>
+                      </Tooltip>
+                    </Box>
+                  )}
+                  <Box margin={4}>
+                    <Text align="right" size={1} muted>
+                      {isDeploying
+                        ? buildTime || '--'
+                        : timestamp
+                        ? spacetime.now().since(spacetime(timestamp)).rounded
+                        : '--'}
+                    </Text>
+                  </Box>
+                </DeployStatus>
               </Box>
             )}
 
