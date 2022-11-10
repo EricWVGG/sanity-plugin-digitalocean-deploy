@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useDocumentOperation } from '@sanity/react-hooks'
 import sanityClient from 'part:@sanity/base/client'
+import axios from 'axios'
 
 const DeployOnPublish = (props) => {
   const { publish } = useDocumentOperation(props.id, props.type)
@@ -39,6 +40,9 @@ const DeployOnPublish = (props) => {
                 'Content-Type': 'application/json',
               },
             }
+            const body = JSON.stringify({
+              force_build: true,
+            })
             axios
               .post(
                 `https://api.digitalocean.com/v2/apps/${appId}/deployments`,
