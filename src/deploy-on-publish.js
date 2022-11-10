@@ -17,6 +17,8 @@ const DeployOnPublish = (props) => {
     })
   }, [])
 
+  const toast = useToast()
+
   return {
     disabled: publish.disabled,
     label: isPublishing ? 'Publishing…' : 'Publish',
@@ -31,24 +33,33 @@ const DeployOnPublish = (props) => {
           .filter((d) => d.deployOnPublish > 0)
           .map((deployment) => {
             const { name, appId, token } = deployment
-            return fetch(
-              `https://api.digitalocean.com/v2/apps/${appId}/deployments`,
-              {
-                method: 'post',
-                headers: new Headers({
-                  Authorization: `Bearer ${token}`,
-                  'Content-Type': 'application/json',
-                }),
-                body: JSON.stringify({
-                  force_build: true,
-                }),
-              }
-            )
-              .then((e) => {
-                console.log(`deployment complete: ${name}`)
+            const config = {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+              },
+            }
+            axios
+              .post(
+                `https://api.digitalocean.com/v2/apps/${appId}/deployments`,
+                body,
+                config
+              )
+              .then((res) => {
+                console.log('response', res)
+                toast.push({
+                  status: 'success',
+                  title: 'Success!',
+                  description: `Triggered Deployment: ${name}`,
+                })
               })
-              .catch((e) => {
+              .catch((err) => {
                 console.log(`error deploying: ${name}`, e)
+                toast.push({
+                  status: 'error',
+                  title: 'Deploy Failed.',
+                  description: `${err}`,
+                })
               })
           })
       ).then(() => {
