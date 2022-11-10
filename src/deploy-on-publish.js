@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useDocumentOperation } from '@sanity/react-hooks'
 import sanityClient from 'part:@sanity/base/client'
 import axios from 'axios'
+import { useToast } from '@sanity/ui'
 
 const DeployOnPublish = (props) => {
   const { publish } = useDocumentOperation(props.id, props.type)
@@ -53,15 +54,15 @@ const DeployOnPublish = (props) => {
                 console.log('response', res)
                 toast.push({
                   status: 'success',
-                  title: 'Success!',
-                  description: `Triggered Deployment: ${name}`,
+                  title: '😄 Deployment Successful',
+                  description: `DigitalOcean: “${name}”`,
                 })
               })
               .catch((err) => {
                 console.log(`error deploying: ${name}`, e)
                 toast.push({
                   status: 'error',
-                  title: 'Deploy Failed.',
+                  title: '😡 Deployment Failed',
                   description: `${err}`,
                 })
               })
