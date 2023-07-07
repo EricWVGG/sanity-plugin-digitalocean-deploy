@@ -1,10 +1,8 @@
-<h3 align="center">
-  DigitalOcean Deployments for Sanity
-</h3>
+# DigitalOcean Deployments for Sanity
 
-<p>
-  This project is <s>shamelessly ripped off of</s> based on <a href="https://github.com/ndimatteo/sanity-plugin-vercel-deploy">sanity-plugin-vercel-deploy</a> by <a href="https://github.com/ndimatteo">Nick DiMatteo</a>.
-</p>
+NOTE: this plugin is for Sanity v2.0. I'll try to find some time this summer to update, but PRs are of course welcome.
+
+This project is <s>shamelessly ripped off of</s> based on <a href="https://github.com/ndimatteo/sanity-plugin-vercel-deploy">sanity-plugin-vercel-deploy</a> by <a href="https://github.com/ndimatteo">Nick DiMatteo</a>.
 
 <p align="center">
   <strong>Trigger DigitalOcean Deploy Hooks from your Sanity Studio.</strong><br />
