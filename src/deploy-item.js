@@ -191,9 +191,13 @@ const deployItem = ({ name, id, appId, token, deployOnPublish }) => {
 
   return (
     <ToastProvider>
-      <Flex align="center">
-        <Box flex={1} paddingBottom={1}>
-          <Stack space={2}>
+      <Flex
+        wrap="wrap"
+        direction={['column', 'column', 'row']}
+        align={['flex-end', 'flex-end', 'center']}
+      >
+        <Box flex={[4, 1]} paddingBottom={[4, 4, 1]}>
+          <Stack space={3}>
             <Inline space={2}>
               <Heading as="h2" size={1}>
                 <Text weight="semibold">
@@ -215,7 +219,12 @@ const deployItem = ({ name, id, appId, token, deployOnPublish }) => {
             </Code>
           </Stack>
         </Box>
-        <Flex wrap="nowrap" align="center" marginLeft={4}>
+        <Flex
+          wrap="nowrap"
+          align="center"
+          marginLeft={[0, 0, 4]}
+          flex={[1, 'none']}
+        >
           <Inline space={2}>
             {token && (
               <Box margin={4}>
@@ -257,6 +266,8 @@ const deployItem = ({ name, id, appId, token, deployOnPublish }) => {
               disabled={isDeploying || isLoading}
               loading={isDeploying || isLoading}
               onClick={() => onDeploy()}
+              paddingX={[5]}
+              paddingY={[4]}
               radius={3}
               text="Deploy"
             />

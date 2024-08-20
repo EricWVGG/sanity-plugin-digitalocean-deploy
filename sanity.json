@@ -6,11 +6,7 @@
   "parts": [
     {
       "implements": "part:@sanity/base/tool",
-      "path": "index.js"
-    },
-    {
-      "implements": "part:@sanity/base/document-actions/resolver",
-      "path": "resolveDocumentActions.js"
+      "path": "./v2-incompatible.js"
     }
   ]
 }

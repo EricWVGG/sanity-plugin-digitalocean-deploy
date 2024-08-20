@@ -1,31 +1,43 @@
 import React from 'react'
-import { Flex, Box } from '@sanity/ui'
+import { Badge, BadgeMode, BadgeTone, Flex, type FlexJustify } from '@sanity/ui'
 
-import styles from './deploy-status.css'
-
-const DeployStatus = ({ status, justify, children }) => {
-  return (
-    <Flex
-      wrap="nowrap"
-      align="center"
-      justify={justify}
-      className={styles.hookStatusIndicator}
-      data-indicator={status}
-    >
-      <Box marginLeft={2}>{titleCase(status)}</Box>
-      {children}
-    </Flex>
-  )
-}
-
-const titleCase = str => {
+const titleCase = (str) => {
   return str
     .toLowerCase()
     .split(' ')
-    .map(word => {
+    .map((word) => {
       return word.charAt(0).toUpperCase() + word.slice(1)
     })
     .join(' ')
+}
+
+const badgeTone =
+  {
+    LOADING: 'default',
+    ERROR: 'critical',
+    INITIATED: 'default',
+    CANCELED: 'default',
+    READY: 'positive',
+    BUILDING: 'caution',
+    QUEUED: 'default',
+  }[status] || 'default'
+
+const badgeMode =
+  {
+    LOADING: 'outline',
+    READY: 'outline',
+    CANCELED: 'outline',
+  }[status] || 'default'
+
+const DeployStatus = ({ status, justify, children }) => {
+  return (
+    <Flex wrap="nowrap" align="center" justify={justify}>
+      <Badge mode={badgeMode} tone={badgeTone} padding={2} fontSize={1}>
+        {titleCase(status)}
+      </Badge>
+      {children}
+    </Flex>
+  )
 }
 
 export default DeployStatus
