@@ -1,6 +1,6 @@
 {
   "name": "sanity-plugin-digitalocean-deploy",
-  "version": "3.0.3",
+  "version": "3.0.7",
   "description": "Trigger DigitalOcean Deploy Hooks from your Sanity Studio.",
   "keywords": [
     "sanity",
@@ -15,10 +15,32 @@
     "url": "https://github.com/EricWVGG/sanity-plugin-digitalocean-deploy/issues"
   },
   "homepage": "https://github.com/EricWVGG/sanity-plugin-digitalocean-deploy#readme",
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.esm.js",
+      "default": "./dist/index.esm.js"
+    },
+    "./package.json": "./package.json"
+  },
   "main": "dist/index.js",
+  "module": "./dist/index.esm.js",
+  "source": "./src/index.ts",
+  "files": [
+    "dist",
+    "sanity.json",
+    "src",
+    "v2-incompatible.js"
+  ],
   "scripts": {
-    "build": "babel src -d dist --copy-files",
-    "prepublish": "npm run build"
+    "build": "run-s clean && plugin-kit verify-package --silent && pkg-utils build --strict && pkg-utils --strict",
+    "clean": "rimraf dist",
+    "format": "prettier --write --cache --ignore-unknown .",
+    "link-watch": "plugin-kit link-watch",
+    "lint": "eslint '**/*.+(ts|js|tsx|jsx)'",
+    "prepublishOnly": "run-s build",
+    "watch": "pkg-utils watch --strict"
   },
   "dependencies": {
     "@sanity/icons": "^1.0.8",
