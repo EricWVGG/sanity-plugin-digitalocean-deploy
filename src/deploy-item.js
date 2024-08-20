@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import useSWR from 'swr'
 import spacetime from 'spacetime'
-
-import sanityClient from 'part:@sanity/base/client'
+import { useClient } from './hook/useClient'
 
 import {
   ToastProvider,
@@ -39,7 +38,7 @@ const fetcher = (url, token) =>
     .then((res) => res.data)
 
 const deployItem = ({ name, id, appId, token, deployOnPublish }) => {
-  const client = sanityClient.withConfig({ apiVersion: '2021-03-25' })
+  const client = useClient()
 
   const [isLoading, setIsLoading] = useState(true)
   const [isDeploying, setDeploying] = useState(false)

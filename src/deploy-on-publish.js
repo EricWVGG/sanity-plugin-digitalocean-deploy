@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react'
-import { useDocumentOperation } from '@sanity/react-hooks'
-import sanityClient from 'part:@sanity/base/client'
+import { useDocumentOperation } from 'sanity'
 import axios from 'axios'
 import { useToast } from '@sanity/ui'
+import { useClient } from './hook/useClient'
 
 const DeployOnPublish = (props) => {
   const { publish } = useDocumentOperation(props.id, props.type)
 
   const [isPublishing, setIsPublishing] = useState(false)
   const [webhooks, setWebhooks] = useState([])
+  const client = useClient()
 
   useEffect(() => {
-    const client = sanityClient.withConfig({ apiVersion: '2021-03-25' })
     const WEBHOOK_TYPE = 'webhook_deploy'
     const WEBHOOK_QUERY = `*[_type == "${WEBHOOK_TYPE}"] | order(_createdAt)`
     client.fetch(WEBHOOK_QUERY).then((w) => {

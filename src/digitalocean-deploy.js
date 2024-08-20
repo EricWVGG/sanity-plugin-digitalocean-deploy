@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import sanityClient from 'part:@sanity/base/client'
+import { useClient } from './hook/useClient'
 import {
   studioTheme,
   ThemeProvider,
@@ -19,7 +19,7 @@ import NewDeploymentForm from './deploy-new'
 const DigitalOceanDeploy = () => {
   const WEBHOOK_TYPE = 'webhook_deploy'
   const WEBHOOK_QUERY = `*[_type == "${WEBHOOK_TYPE}"] | order(_createdAt)`
-  const client = sanityClient.withConfig({ apiVersion: '2021-03-25' })
+  const client = useClient()
 
   const [isLoading, setIsLoading] = useState(true)
   const [isFormOpen, setIsFormOpen] = useState(false)

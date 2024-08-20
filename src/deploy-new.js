@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { nanoid } from 'nanoid'
 import { FormField } from '@sanity/base/components'
-import sanityClient from 'part:@sanity/base/client'
+import { useClient } from './hook/useClient'
 import {
   useToast,
   Dialog,
@@ -16,7 +16,7 @@ import {
 const NewDeploymentForm = ({ setIsFormOpen }) => {
   const toast = useToast()
   const WEBHOOK_TYPE = 'webhook_deploy'
-  const client = sanityClient.withConfig({ apiVersion: '2021-03-25' })
+  const client = useClient()
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const initialDeploy = {

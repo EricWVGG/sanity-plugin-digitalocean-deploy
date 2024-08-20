@@ -14,7 +14,9 @@ This project is <s>shamelessly ripped off of</s> based on <a href="https://githu
 Run the following command in your studio folder using the Sanity CLI:
 
 ```sh
-sanity install digitalocean-deploy
+yarn add sanity-plugin-digitalocean-deploy
+# or npm
+npm i sanity-plugin-digitalocean-deploy
 ```
 
 ⚠️ **Note:** If your Studio is not using the `@sanity/dashboard` part, you'll need to manually install this as well:
