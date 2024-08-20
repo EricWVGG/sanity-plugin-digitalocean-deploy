@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { nanoid } from 'nanoid'
-import { FormField } from '@sanity/base/components'
+import { FormField } from 'sanity'
 import { useClient } from './hook/useClient'
 import {
   useToast,
